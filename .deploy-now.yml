@@ -10,4 +10,4 @@ build:
 post-deployment:
   commands:
     - mkdir -p storage/framework/{sessions,views,cache}
-    - chmod -R 775 storage bootstrap/cache 
+    - chmod -R 775 storage bootstrap/cache
