@@ -47,12 +47,12 @@ jobs:
 
       - name: Run composer install
         env:
-          APP_URL: https://www.onepiecebsttles.org
+          APP_URL: https://www.onepiecebattles.org
         run: composer install --optimize-autoloader --no-dev
 
       - name: Build PHP assets
         env:
-          APP_URL: https://www.onepiecebsttles.org
+          APP_URL: https://www.onepiecebattles.org
         run: php artisan key:generate --force -n
 
       - name: Setup Node
@@ -74,7 +74,7 @@ jobs:
         with:
           api-key: ${{ secrets.IONOS_API_KEY }}
           service-host: api-us.ionos.space
-          project-id: 5d97be85-e635-4eba-a8a4-124e507f7f52
+          project-id: 08c2b040-ca12-49be-8568-5e4677edf347
           branch-id: ${{ inputs.branch-id }}
           version: ${{ github.sha }}
           folder: ${{ env.DEPLOYMENT_FOLDER }}
