@@ -1,17 +1,24 @@
-version: 1
+version: 1.0
+runtime:
+  php_version: 8.2
+  nodejs_version: 18
 build:
-  - name: Install dependencies
-    command: composer install --no-dev --optimize-autoloader
-  - name: Generate application key
-    command: php artisan key:generate
-  - name: Optimize Laravel
-    command: php artisan optimize
-  - name: Build assets
-    command: npm install && npm run build
-deploy:
-  - name: Deploy to production
-    command: |
-      php artisan storage:link
-      php artisan config:cache
-      php artisan route:cache
-      php artisan view:cache
+  commands:
+    # Install PHP dependencies
+    - composer install --no-dev --optimize-autoloader
+    # Install and build frontend assets
+    - npm ci
+    - npm run build
+    # Generate key and optimize
+    - php artisan key:generate --force
+    - php artisan optimize
+    - php artisan config:cache
+    - php artisan route:cache
+    - php artisan view:cache
+post-deployment:
+  commands:
+    # Set up storage and permissions
+    - mkdir -p storage/framework/{sessions,views,cache}
+    - chmod -R 775 storage bootstrap/cache
+    # Run database migrations
+    - php artisan migrate --force
