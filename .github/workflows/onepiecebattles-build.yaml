@@ -46,13 +46,17 @@ jobs:
           tools: composer:2
 
       - name: Run composer install
-        env:
-          APP_URL: https://www.onepiecebattles.org
+# uncomment the following lines if you want to add environment variables for this step
+#        env:
+#          MY_ENV_VAR: value-for-my-env-var
+#          MY_SECRET_ENV_VAR: ${{ secrets.MY_SECRET }} # here you can find information how to create secrets: https://docs.github.com/en/actions/security-guides/encrypted-secrets
         run: composer install --optimize-autoloader --no-dev
 
       - name: Build PHP assets
-        env:
-          APP_URL: https://www.onepiecebattles.org
+# uncomment the following lines if you want to add environment variables for this step
+#        env:
+#          MY_ENV_VAR: value-for-my-env-var
+#          MY_SECRET_ENV_VAR: ${{ secrets.MY_SECRET }} # here you can find information how to create secrets: https://docs.github.com/en/actions/security-guides/encrypted-secrets
         run: php artisan key:generate --force -n
 
       - name: Setup Node
@@ -74,7 +78,7 @@ jobs:
         with:
           api-key: ${{ secrets.IONOS_API_KEY }}
           service-host: api-us.ionos.space
-          project-id: 08c2b040-ca12-49be-8568-5e4677edf347
+          project-id: a49367aa-124a-4269-a452-a81b47550722
           branch-id: ${{ inputs.branch-id }}
           version: ${{ github.sha }}
           folder: ${{ env.DEPLOYMENT_FOLDER }}
